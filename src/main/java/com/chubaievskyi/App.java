@@ -11,6 +11,5 @@ public class App {
         LOGGER.info("Program start!");
         LOGGER.info("Hello World!");
         LOGGER.info("End of program!");
-        LOGGER.info("TEST!");
     }
 }
