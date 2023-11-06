@@ -9,8 +9,7 @@ public class App {
 
     public static void main(String[] args) {
         LOGGER.info("Program start!");
-        LOGGER.info("Hello World!");
-        LOGGER.info("End of program!");
         LOGGER.info("TEST!");
+        LOGGER.info("End of program!");
     }
 }
