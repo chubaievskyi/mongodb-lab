@@ -127,7 +127,7 @@
                                     <mainClass>com.chubaievskyi.App</mainClass>
                                     <manifestEntries>
                                         <Multi-Release>true</Multi-Release>
-                                        <Class-Path>/opt/homework4/config/</Class-Path>
+                                        <Class-Path>./config/</Class-Path>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
