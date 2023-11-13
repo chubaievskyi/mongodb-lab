@@ -24,6 +24,7 @@ public class InputReader {
     private int totalNumberOfLines;
     private int numberOfThreads;
     private int maxNumberOfProductsSameCategory;
+    private int batchSize;
 
 
     private InputReader() {
@@ -59,5 +60,6 @@ public class InputReader {
         totalNumberOfLines = Integer.parseInt(PROPERTIES.getProperty("db.total.number.of.lines"));
         numberOfThreads = Integer.parseInt(PROPERTIES.getProperty("db.number.of.threads"));
         maxNumberOfProductsSameCategory = Integer.parseInt(PROPERTIES.getProperty("db.max.number.of.products.same.category"));
+        batchSize = Integer.parseInt(PROPERTIES.getProperty("db.batch.size"));
     }
 }
