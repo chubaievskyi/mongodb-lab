@@ -1,5 +1,6 @@
 package com.chubaievskyi;
 
+import com.chubaievskyi.database.DBCreator;
 import com.chubaievskyi.util.ConnectionManager;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -12,21 +13,12 @@ public class App {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
+
         LOGGER.info("Program start!");
-
-        MongoDatabase database = ConnectionManager.getDatabase();
-
-        // Вибір колекції
-        MongoCollection<Document> collection = database.getCollection("mycollection");
-
-        // Вставка документа в колекцію
-        Document document = new Document("name", "John")
-                .append("age", 30);
-        collection.insertOne(document);
-
-        // Закриття підключення до MongoDB
-        ConnectionManager.close();
-
+        new DBCreator().run();
+//        new ProductQueryExecutor().findShopByCategory();
+//        new DatabaseIndexManager().createIndex();
+//        new ProductQueryExecutor().findShopByCategory();
         LOGGER.info("End of program!");
     }
 }
