@@ -20,6 +20,7 @@ public class DBCreator {
     private static final int NUMBER_OF_LINES = INPUT_READER.getTotalNumberOfLines();
     private static final int NUMBER_OF_THREADS = INPUT_READER.getNumberOfThreads();
     private final AtomicInteger rowCounter = new AtomicInteger(0);
+    private final AtomicInteger rowCounter2 = new AtomicInteger(0);
     private final MongoDatabase database = ConnectionManager.getDatabase();
 
     public void run() {
@@ -30,7 +31,7 @@ public class DBCreator {
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         long startTimeExecutor = System.currentTimeMillis();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database);
+            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database, rowCounter2);
             executor.submit(randomDataPlaceholder);
         }
 
