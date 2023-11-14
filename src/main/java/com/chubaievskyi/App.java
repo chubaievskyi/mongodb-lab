@@ -1,10 +1,8 @@
 package com.chubaievskyi;
 
 import com.chubaievskyi.database.DBCreator;
-import com.chubaievskyi.util.ConnectionManager;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
+import com.chubaievskyi.database.DatabaseIndexManager;
+import com.chubaievskyi.database.ProductQueryExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +14,9 @@ public class App {
 
         LOGGER.info("Program start!");
         new DBCreator().run();
-//        new ProductQueryExecutor().findShopByCategory();
-//        new DatabaseIndexManager().createIndex();
-//        new ProductQueryExecutor().findShopByCategory();
+        new ProductQueryExecutor().findShopByCategory();
+        new DatabaseIndexManager().createIndexes();
+        new ProductQueryExecutor().findShopByCategory();
         LOGGER.info("End of program!");
     }
 }
