@@ -36,7 +36,7 @@ public class DBCreator {
         }
 
         shutdownAndAwaitTermination(executor);
-        LOGGER.info("{} rows of data added!", rowCounter.get());
+        LOGGER.info("{} rows of data added!", rowCounter.addAndGet(rowCounter2.get()));
         long endTimeExecutor = System.currentTimeMillis();
 
         printResult(startTimeExecutor, endTimeExecutor);
