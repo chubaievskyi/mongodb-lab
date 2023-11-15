@@ -15,8 +15,10 @@ public class App {
         LOGGER.info("Program start!");
         new DBCreator().run();
         new ProductQueryExecutor().findShopByCategory();
+//        new ProductQueryExecutor().findShopByCategoryV2();
         new DatabaseIndexManager().createIndexes();
         new ProductQueryExecutor().findShopByCategory();
+//        new ProductQueryExecutor().findShopByCategoryV2();
         LOGGER.info("End of program!");
     }
 }

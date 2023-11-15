@@ -47,8 +47,8 @@ public class RandomDataPlaceholder implements Runnable {
         productsData = getAllProductsData(database);
 
         try {
-//            generateProductsInShops();
-            generateProductsInShopsV2();
+            generateProductsInShops();
+//            generateProductsInShopsV2();
         } catch (MongoException e) {
             throw new DBExecutionException("Database query execution error.", e);
         }

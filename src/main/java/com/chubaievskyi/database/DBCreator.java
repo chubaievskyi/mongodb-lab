@@ -68,7 +68,6 @@ public class DBCreator {
     private void printResult(long startTimeExecutor, long endTimeExecutor) {
         double executorTime = (double) (endTimeExecutor - startTimeExecutor) / 1000;
         LOGGER.info("Product generation time in stores - (sec) - {}", executorTime);
-        LOGGER.info("Number of generate lines - {}", NUMBER_OF_LINES);
 
         double averageGenerateSpeed = NUMBER_OF_LINES / executorTime;
         String formattedAverageGenerateSpeed = String.format("%.2f", averageGenerateSpeed);
