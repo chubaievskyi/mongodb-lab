@@ -43,13 +43,17 @@ public class ProductQueryExecutor {
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
 
-        String results = document.get("shop_name").toString() + ", " + document.get("shop_city").toString() + ", " +
-                document.get("shop_street").toString() + ", " + document.get("shop_number").toString();
-        String quantity = document.get("totalQuantity").toString();
+        if (document != null) {
+            String results = document.get("shop_name").toString() + ", " + document.get("shop_city").toString() + ", " +
+                    document.get("shop_street").toString() + ", " + document.get("shop_number").toString();
+            String quantity = document.get("totalQuantity").toString();
+            LOGGER.info("The largest number of products in the {} category is in the store: {} - {}pcs",
+                    PRODUCT_TYPE, results, quantity);
+            LOGGER.info("Query execution time(ms) : {}", resultTime);
+        } else {
+            LOGGER.info("There are no products in the {} category", PRODUCT_TYPE);
+        }
 
 
-        LOGGER.info("The largest number of products in the {} category is in the store: {} - {}pcs",
-                PRODUCT_TYPE, results, quantity);
-        LOGGER.info("Query execution time(ms) : {}", resultTime);
     }
 }
