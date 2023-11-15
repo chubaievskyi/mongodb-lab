@@ -41,12 +41,6 @@
 //        );
 //
 //        mongodExecutable.start();
-//
-////        try {
-////            Thread.sleep(10000);
-////        } catch (InterruptedException e) {
-////            throw new RuntimeException(e);
-////        }
 //    }
 //
 //    public static MongoDatabase getDatabase() {
@@ -61,7 +55,6 @@
 //        if (mongodExecutable != null) {
 //            try {
 //                mongodExecutable.stop();
-////                mongodExecutable.stop(ProcessStopMode.FORCE);
 //                LOGGER.info("Embedded MongoDB server stopped successfully.");
 //            } catch (Exception e) {
 //                LOGGER.error("Error stopping embedded MongoDB server", e);
