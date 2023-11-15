@@ -16,7 +16,6 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -27,9 +26,9 @@ public class ValueGenerator {
     private static final InputReader INPUT_READER = InputReader.getInstance();
     private static final int NUMBER_OF_SHOPS = INPUT_READER.getNumberOfShops();
     private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
-    private static final DTOGenerator dtoGenerator = new DTOGenerator();
-    private static final MongoDatabase database = ConnectionManager.getDatabase();
+    private final DTOGenerator dtoGenerator = new DTOGenerator();
     private final Validator validator = initializeValidator();
+    private MongoDatabase database = ConnectionManager.getDatabase();
 
     public void generateValue() {
 
@@ -45,7 +44,6 @@ public class ValueGenerator {
 
     private void generateShopValue() {
         try {
-//            MongoDatabase database = ConnectionManager.getDatabase();
             MongoCollection<Document> shopsCollection = database.getCollection("shops");
 
             int shopCounter = 0;
@@ -60,7 +58,6 @@ public class ValueGenerator {
                             .append("number", shop.getNumber());
 
                     batch.add(shopDocument);
-//                    shopsCollection.insertOne(shopDocument);
                     shopCounter++;
                 }
             }
@@ -68,14 +65,11 @@ public class ValueGenerator {
             LOGGER.info("{} documents added to 'shops' collection!", result.getInsertedIds().size());
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating shop values.", e);
-//        } finally {
-//            ConnectionManager.close();
         }
     }
 
     private void generateProductValue() {
         try {
-//            MongoDatabase database = ConnectionManager.getDatabase();
             MongoCollection<Document> productsCollection = database.getCollection("products");
 
             int productCounter = 0;
@@ -88,19 +82,13 @@ public class ValueGenerator {
                             .append("category", product.getCategory());
 
                     batch.add(productDocument);
-//                    productsCollection.insertOne(productDocument);
                     productCounter++;
-//                    if (productCounter % 100 == 0) {
-//                        LOGGER.info("{} products added to 'products' collection!", productCounter);
-//                    }
                 }
             }
             InsertManyResult result = productsCollection.insertMany(batch);
             LOGGER.info("{} documents added to 'products' collection!", result.getInsertedIds().size());
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating product values.", e);
-//        } finally {
-//            ConnectionManager.close();
         }
     }
 
@@ -113,5 +101,9 @@ public class ValueGenerator {
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
             return factory.getValidator();
         }
+    }
+
+    public void setDatabase(MongoDatabase database) {
+        this.database = database;
     }
 }
