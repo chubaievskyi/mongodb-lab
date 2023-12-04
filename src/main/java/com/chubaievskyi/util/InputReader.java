@@ -10,7 +10,7 @@ import java.util.Properties;
 public class InputReader {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(InputReader.class);
-    private static final Properties PROPERTIES = new PropertiesLoader().loadProperties();
+    private static final Properties PROPERTIES = new PropertyLoader().loadProperties();
     private static final InputReader INSTANCE = new InputReader();
 
     private String url;

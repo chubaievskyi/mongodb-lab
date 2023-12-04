@@ -11,9 +11,9 @@
 //
 //import java.io.IOException;
 //
-//import static com.chubaievskyi.util.PropertiesLoader.LOGGER;
+//import static com.chubaievskyi.util.PropertyLoader.LOGGER;
 //
-//public class TestConnectionManager {
+//public class TestConnectionManagerInMemoryTest {
 //
 //    private static final String DATABASE_NAME = "test_database";
 //    private static final int MONGO_PORT = 27018;

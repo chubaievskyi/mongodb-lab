@@ -3,6 +3,7 @@ package com.chubaievskyi;
 import com.chubaievskyi.database.DBCreator;
 import com.chubaievskyi.database.DatabaseIndexManager;
 import com.chubaievskyi.database.ProductQueryExecutor;
+import com.chubaievskyi.database.ProductQueryExecutorV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +15,9 @@ public class App {
 
         LOGGER.info("Program start!");
         new DBCreator().run();
-//        new ProductQueryExecutor().findShopByCategory();
-//        new ProductQueryExecutor().findShopByCategoryV2();
         new DatabaseIndexManager().createIndexes();
         new ProductQueryExecutor().findShopByCategory();
-//        new ProductQueryExecutor().findShopByCategoryV2();
+        new ProductQueryExecutorV2().findShopByCategory();
         LOGGER.info("End of program!");
     }
 }

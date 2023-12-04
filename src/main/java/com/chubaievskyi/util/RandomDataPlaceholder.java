@@ -70,7 +70,6 @@ public class RandomDataPlaceholder implements Runnable {
 
                 Document randomShop = getRandomDocument(shopsData);
                 ObjectId shopId = randomShop.getObjectId("_id");
-
                 Document randomProduct = getRandomDocument(productsData);
                 ObjectId productId = randomProduct.getObjectId("_id");
 
