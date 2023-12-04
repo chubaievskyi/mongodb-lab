@@ -7,13 +7,11 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class DatabaseIndexManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseIndexManager.class);
     private static final MongoDatabase database = ConnectionManager.getDatabase();
     private static final MongoCollection<Document> collection = database.getCollection("products_in_shops");
-//    private static final MongoCollection<Document> collection = database.getCollection("products_in_shops_v2");
 
     public void createIndexes() {
         LOGGER.info("Creating indexes!");
@@ -25,9 +23,5 @@ public class DatabaseIndexManager {
         Document categoryIndex = new Document("product_id", 1);
         collection.createIndex(categoryIndex);
         LOGGER.info("Index on \"product_id\" created.");
-
-//        Document categoryIndex = new Document("productV2.category", 1);
-//        collection.createIndex(categoryIndex);
-//        LOGGER.info("Index on \"category\" created.");
     }
 }

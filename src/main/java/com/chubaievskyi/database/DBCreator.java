@@ -31,7 +31,7 @@ public class DBCreator {
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         long startTimeExecutor = System.currentTimeMillis();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database, rowCounter2);
+            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database);
             executor.submit(randomDataPlaceholder);
         }
 
@@ -44,8 +44,8 @@ public class DBCreator {
 
     private void createCollectionsAndValue() {
 
-        CollectionsGenerator collectionsGenerator = new CollectionsGenerator();
-        collectionsGenerator.createCollections(database);
+        CollectionGenerator collectionGenerator = new CollectionGenerator();
+        collectionGenerator.createCollections(database);
 
         ValueGenerator valueGenerator = new ValueGenerator();
         valueGenerator.generateValue();

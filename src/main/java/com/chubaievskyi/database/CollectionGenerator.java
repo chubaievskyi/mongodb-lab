@@ -6,9 +6,9 @@ import com.mongodb.client.MongoDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CollectionsGenerator {
+public class CollectionGenerator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionsGenerator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionGenerator.class);
 
     public void createCollections(MongoDatabase database) {
         LOGGER.info("Method createCollections() class CollectionsGenerator start!");
@@ -16,7 +16,6 @@ public class CollectionsGenerator {
             deleteCollectionIfExists(database, "shops");
             deleteCollectionIfExists(database, "products");
             deleteCollectionIfExists(database, "products_in_shops");
-//            deleteCollectionIfExists(database, "products_in_shops_v2");
 
             database.createCollection("shops");
             LOGGER.info("Collection \"shops\" created.");
@@ -24,8 +23,6 @@ public class CollectionsGenerator {
             LOGGER.info("Collection \"products\" created.");
             database.createCollection("products_in_shops");
             LOGGER.info("Collection \"products_in_shops\" created.");
-//            database.createCollection("products_in_shops_v2");
-//            LOGGER.info("Collection \"products_in_shops_v2\" created.");
 
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating collections.", e);
