@@ -25,7 +25,7 @@ class InputReaderTest {
         assertTrue(inputReader.getNumberOfProduct() > 0);
         assertTrue(inputReader.getTotalNumberOfLines() > 0);
         assertTrue(inputReader.getNumberOfThreads() > 0);
-        assertTrue(inputReader.getMaxNumberOfProductsSameCategory() > 0);
+        assertTrue(inputReader.getMaxProductQuantity() > 0);
         assertTrue(inputReader.getBatchSize() > 0);
     }
 }

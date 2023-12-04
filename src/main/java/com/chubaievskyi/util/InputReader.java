@@ -23,12 +23,12 @@ public class InputReader {
     private int numberOfProduct;
     private int totalNumberOfLines;
     private int numberOfThreads;
-    private int maxNumberOfProductsSameCategory;
+    private int maxProductQuantity;
     private int batchSize;
 
 
     private InputReader() {
-        readPropertiesValue();
+        readPropertyValue();
         checkProductType();
     }
 
@@ -47,7 +47,7 @@ public class InputReader {
         }
     }
 
-    private void readPropertiesValue() {
+    private void readPropertyValue() {
         LOGGER.info("Read the values of properties.");
         url = PROPERTIES.getProperty("db.url");
         username = PROPERTIES.getProperty("db.username");
@@ -59,7 +59,7 @@ public class InputReader {
         numberOfProduct = Integer.parseInt(PROPERTIES.getProperty("db.number.of.product"));
         totalNumberOfLines = Integer.parseInt(PROPERTIES.getProperty("db.total.number.of.lines"));
         numberOfThreads = Integer.parseInt(PROPERTIES.getProperty("db.number.of.threads"));
-        maxNumberOfProductsSameCategory = Integer.parseInt(PROPERTIES.getProperty("db.max.number.of.products.same.category"));
+        maxProductQuantity = Integer.parseInt(PROPERTIES.getProperty("db.max.product.quantity"));
         batchSize = Integer.parseInt(PROPERTIES.getProperty("db.batch.size"));
     }
 }

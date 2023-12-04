@@ -42,9 +42,9 @@ public class ProductQueryExecutor {
     }
 
     public List<ObjectId> findProductIdsByCategory() {
-        MongoCollection<Document> productsCollection = database.getCollection("products");
+        MongoCollection<Document> productCollection = database.getCollection("products");
 
-        return productsCollection
+        return productCollection
                 .find(Filters.eq("category", PRODUCT_TYPE))
                 .map(document -> document.getObjectId("_id"))
                 .into(new ArrayList<>());
