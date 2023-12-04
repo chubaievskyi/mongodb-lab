@@ -16,7 +16,7 @@ public class CollectionsGenerator {
             deleteCollectionIfExists(database, "shops");
             deleteCollectionIfExists(database, "products");
             deleteCollectionIfExists(database, "products_in_shops");
-            deleteCollectionIfExists(database, "products_in_shops_v2");
+//            deleteCollectionIfExists(database, "products_in_shops_v2");
 
             database.createCollection("shops");
             LOGGER.info("Collection \"shops\" created.");
@@ -24,8 +24,8 @@ public class CollectionsGenerator {
             LOGGER.info("Collection \"products\" created.");
             database.createCollection("products_in_shops");
             LOGGER.info("Collection \"products_in_shops\" created.");
-            database.createCollection("products_in_shops_v2");
-            LOGGER.info("Collection \"products_in_shops_v2\" created.");
+//            database.createCollection("products_in_shops_v2");
+//            LOGGER.info("Collection \"products_in_shops_v2\" created.");
 
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating collections.", e);

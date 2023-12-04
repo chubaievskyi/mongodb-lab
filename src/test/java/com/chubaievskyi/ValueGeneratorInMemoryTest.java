@@ -1,6 +1,6 @@
-//package com.chubaievskyi.util;
+//package com.chubaievskyi;
 //
-//import com.chubaievskyi.TestConnectionManager;
+//import com.chubaievskyi.util.ValueGenerator;
 //import com.mongodb.client.MongoCollection;
 //import com.mongodb.client.MongoCursor;
 //import com.mongodb.client.MongoDatabase;
@@ -12,9 +12,9 @@
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
-//class ValueGeneratorTest {
+//class ValueGeneratorInMemoryTest {
 //
-//    private static final MongoDatabase database = TestConnectionManager.getDatabase();
+//    private static final MongoDatabase database = TestConnectionManagerInMemoryTest.getDatabase();
 //
 //    @Test
 //    void testGenerateValue() {
@@ -53,6 +53,6 @@
 //
 //    @AfterAll
 //    public static void tearDown() {
-//        TestConnectionManager.close();
+//        TestConnectionManagerInMemoryTest.close();
 //    }
 //}

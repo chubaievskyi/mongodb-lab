@@ -1,6 +1,6 @@
-//package com.chubaievskyi.database;
+//package com.chubaievskyi;
 //
-//import com.chubaievskyi.TestConnectionManager;
+//import com.chubaievskyi.database.CollectionsGenerator;
 //import com.mongodb.client.MongoCursor;
 //import com.mongodb.client.MongoDatabase;
 //import org.junit.jupiter.api.AfterAll;
@@ -9,9 +9,9 @@
 //
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
-//class CollectionsGeneratorTest {
+//class CollectionsGeneratorInMemoryTest {
 //
-//    private static final MongoDatabase database = TestConnectionManager.getDatabase();
+//    private static final MongoDatabase database = TestConnectionManagerInMemoryTest.getDatabase();
 //
 //    @Test
 //    void testCreateCollections() {
@@ -21,7 +21,7 @@
 //
 //        assertTrue(collectionExists("shops"));
 //        assertTrue(collectionExists("products"));
-//        assertTrue(collectionExists("products_in_shops_v2"));
+//        assertTrue(collectionExists("products_in_shops"));
 //    }
 //
 //    private boolean collectionExists(String collectionName) {
@@ -42,6 +42,6 @@
 //
 //    @AfterAll
 //    public static void tearDown() {
-//        TestConnectionManager.close();
+//        TestConnectionManagerInMemoryTest.close();
 //    }
 //}
