@@ -28,7 +28,7 @@ public class ValueGenerator {
     private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
     private final DTOGenerator dtoGenerator = new DTOGenerator();
     private final Validator validator = initializeValidator();
-    private MongoDatabase database = ConnectionManager.getDatabase();
+    private final MongoDatabase database = ConnectionManager.getDatabase();
 
     public void generateValue() {
 
@@ -70,7 +70,7 @@ public class ValueGenerator {
 
     private void generateProductValue() {
         try {
-            MongoCollection<Document> productsCollection = database.getCollection("products");
+            MongoCollection<Document> productCollection = database.getCollection("products");
 
             int productCounter = 0;
             List<Document> batch = new CopyOnWriteArrayList<>();
@@ -85,7 +85,7 @@ public class ValueGenerator {
                     productCounter++;
                 }
             }
-            InsertManyResult result = productsCollection.insertMany(batch);
+            InsertManyResult result = productCollection.insertMany(batch);
             LOGGER.info("{} documents added to 'products' collection!", result.getInsertedIds().size());
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating product values.", e);
@@ -101,9 +101,5 @@ public class ValueGenerator {
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
             return factory.getValidator();
         }
-    }
-
-    public void setDatabase(MongoDatabase database) {
-        this.database = database;
     }
 }

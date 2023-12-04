@@ -43,7 +43,6 @@ public class DBCreator {
     }
 
     private void createCollectionsAndValue() {
-
         CollectionGenerator collectionGenerator = new CollectionGenerator();
         collectionGenerator.createCollections(database);
 
@@ -52,7 +51,6 @@ public class DBCreator {
     }
 
     private void shutdownAndAwaitTermination(ExecutorService executor) {
-
         executor.shutdown();
         try {
             if (!executor.awaitTermination( Long.MAX_VALUE, TimeUnit.SECONDS)) {

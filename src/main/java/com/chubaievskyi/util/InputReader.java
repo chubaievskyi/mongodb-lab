@@ -26,7 +26,6 @@ public class InputReader {
     private int maxProductQuantity;
     private int batchSize;
 
-
     private InputReader() {
         readPropertyValue();
         checkProductType();
