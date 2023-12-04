@@ -30,19 +30,8 @@ public class ValueGenerator {
     private final Validator validator = initializeValidator();
     private final MongoDatabase database = ConnectionManager.getDatabase();
 
-    public void generateValue() {
-
-        LOGGER.info("Method generateValue() class ValueGenerator start!");
-
-        try {
-            generateShopValue();
-            generateProductValue();
-        } catch (MongoException e) {
-            throw new DBExecutionException("Error database query execution (class ValueGenerator).", e);
-        }
-    }
-
-    private void generateShopValue() {
+    public List<Document> generateShopValue() {
+        List<Document> shopsData = new CopyOnWriteArrayList<>();
         try {
             MongoCollection<Document> shopsCollection = database.getCollection("shops");
 
@@ -63,12 +52,15 @@ public class ValueGenerator {
             }
             InsertManyResult result = shopsCollection.insertMany(batch);
             LOGGER.info("{} documents added to 'shops' collection!", result.getInsertedIds().size());
+            shopsData.addAll(batch);
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating shop values.", e);
         }
+        return shopsData;
     }
 
-    private void generateProductValue() {
+    public List<Document> generateProductValue() {
+        List<Document> productData = new CopyOnWriteArrayList<>();
         try {
             MongoCollection<Document> productCollection = database.getCollection("products");
 
@@ -87,9 +79,11 @@ public class ValueGenerator {
             }
             InsertManyResult result = productCollection.insertMany(batch);
             LOGGER.info("{} documents added to 'products' collection!", result.getInsertedIds().size());
+            productData.addAll(batch);
         } catch (MongoException e) {
             throw new DBExecutionException("Error while generating product values.", e);
         }
+        return productData;
     }
 
     private boolean checkDTOBeforeTransfer(Object obj, Validator validator) {
