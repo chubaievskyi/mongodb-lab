@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class ProductValidator implements ConstraintValidator<ProductValidation, ProductDTO> {
 
-//    public static final String REGEX = "^[^,&]*$";
     public static final String REGEX = "^\\D*$";
     public static final Pattern pattern = Pattern.compile(REGEX);
 
