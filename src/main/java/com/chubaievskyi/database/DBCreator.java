@@ -5,6 +5,9 @@ import com.chubaievskyi.util.InputReader;
 import com.chubaievskyi.util.RandomDataPlaceholder;
 import com.chubaievskyi.util.ValueGenerator;
 import com.mongodb.client.MongoDatabase;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +24,11 @@ public class DBCreator {
     private static final InputReader INPUT_READER = InputReader.getInstance();
     private static final int NUMBER_OF_LINES = INPUT_READER.getTotalNumberOfLines();
     private static final int NUMBER_OF_THREADS = INPUT_READER.getNumberOfThreads();
-    private final AtomicInteger rowCounter = new AtomicInteger(0);
+    private static final int NUMBER_OF_SHOPS = INPUT_READER.getNumberOfShops();
+    private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
+    private final AtomicInteger counter = new AtomicInteger(0);
     private final MongoDatabase database = ConnectionManager.getDatabase();
+    private final Validator validator = initializeValidator();
 
     private List<Document> shopsData;
     private List<Document> productData;
@@ -34,14 +40,11 @@ public class DBCreator {
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         long startTimeExecutor = System.currentTimeMillis();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-//            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter,
-//                    database, shopsData, productData);
-//            executor.submit(randomDataPlaceholder);
-            executor.submit(new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database, shopsData, productData));
+            executor.submit(new RandomDataPlaceholder(NUMBER_OF_LINES, counter, database, shopsData, productData));
         }
 
         shutdownAndAwaitTermination(executor);
-        LOGGER.info("{} rows of data added!", rowCounter.get());
+        LOGGER.info("{} rows of data added!", counter.get());
         long endTimeExecutor = System.currentTimeMillis();
 
         printResult(startTimeExecutor, endTimeExecutor);
@@ -49,8 +52,8 @@ public class DBCreator {
 
     private void createCollectionsAndValue() {
         new CollectionGenerator().createCollections(database);
-        shopsData = new ValueGenerator().generateShopValue();
-        productData = new ValueGenerator().generateProductValue();
+        shopsData = new ValueGenerator().generateShopValue(database, validator, NUMBER_OF_SHOPS);
+        productData = new ValueGenerator().generateProductValue(database, validator, NUMBER_OF_PRODUCTS);
     }
 
     private void shutdownAndAwaitTermination(ExecutorService executor) {
@@ -63,6 +66,12 @@ public class DBCreator {
             LOGGER.debug("Executor service interrupted for executor threads.", e);
             executor.shutdownNow();
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private Validator initializeValidator() {
+        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            return factory.getValidator();
         }
     }
 

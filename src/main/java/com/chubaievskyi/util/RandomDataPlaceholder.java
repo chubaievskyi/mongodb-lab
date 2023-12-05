@@ -57,10 +57,8 @@ public class RandomDataPlaceholder implements Runnable {
             for (int i = 0; i < batchSize; i++) {
                 counter.incrementAndGet();
 
-//                Document randomShop = getRandomDocument(shopsData);
                 Document randomShop = shopsData.get(RANDOM.nextInt(shopsData.size()));
                 ObjectId shopId = randomShop.getObjectId("_id");
-//                Document randomProduct = getRandomDocument(productData);
                 Document randomProduct = productData.get(RANDOM.nextInt(productData.size()));
                 ObjectId productId = randomProduct.getObjectId("_id");
 
@@ -82,9 +80,4 @@ public class RandomDataPlaceholder implements Runnable {
             LOGGER.info("{} documents added to 'products_in_shops' collection!", result.getInsertedIds().size());
         }
     }
-
-//    private static Document getRandomDocument(List<Document> documents) {
-//        int index = RANDOM.nextInt(documents.size());
-//        return documents.get(index);
-//    }
 }

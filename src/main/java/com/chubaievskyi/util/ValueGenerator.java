@@ -23,14 +23,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ValueGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValueGenerator.class);
-    private static final InputReader INPUT_READER = InputReader.getInstance();
-    private static final int NUMBER_OF_SHOPS = INPUT_READER.getNumberOfShops();
-    private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
+//    private static final InputReader INPUT_READER = InputReader.getInstance();
+//    private static final int NUMBER_OF_SHOPS = INPUT_READER.getNumberOfShops();
+//    private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
     private final DTOGenerator dtoGenerator = new DTOGenerator();
-    private final Validator validator = initializeValidator();
-    private final MongoDatabase database = ConnectionManager.getDatabase();
+//    private final Validator validator = initializeValidator();
+//    private final MongoDatabase database = ConnectionManager.getDatabase();
 
-    public List<Document> generateShopValue() {
+    public List<Document> generateShopValue(MongoDatabase database, Validator validator, int numberOfShops) {
         List<Document> shopsData = new CopyOnWriteArrayList<>();
         try {
             MongoCollection<Document> shopsCollection = database.getCollection("shops");
@@ -38,7 +38,7 @@ public class ValueGenerator {
             int shopCounter = 0;
             List<Document> batch = new CopyOnWriteArrayList<>();
 
-            while (shopCounter < NUMBER_OF_SHOPS) {
+            while (shopCounter < numberOfShops) {
                 ShopDTO shop = dtoGenerator.generateRandomShop();
                 if (checkDTOBeforeTransfer(shop, validator)) {
                     Document shopDocument = new Document("name", shop.getName())
@@ -59,7 +59,7 @@ public class ValueGenerator {
         return shopsData;
     }
 
-    public List<Document> generateProductValue() {
+    public List<Document> generateProductValue(MongoDatabase database, Validator validator, int numberOfProducts) {
         List<Document> productData = new CopyOnWriteArrayList<>();
         try {
             MongoCollection<Document> productCollection = database.getCollection("products");
@@ -67,7 +67,7 @@ public class ValueGenerator {
             int productCounter = 0;
             List<Document> batch = new CopyOnWriteArrayList<>();
 
-            while (productCounter < NUMBER_OF_PRODUCTS) {
+            while (productCounter < numberOfProducts) {
                 ProductDTO product = dtoGenerator.generateRandomProduct();
                 if (checkDTOBeforeTransfer(product, validator)) {
                     Document productDocument = new Document("name", product.getName())
@@ -91,9 +91,9 @@ public class ValueGenerator {
         return violations.isEmpty();
     }
 
-    private Validator initializeValidator() {
-        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            return factory.getValidator();
-        }
-    }
+//    private Validator initializeValidator() {
+//        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+//            return factory.getValidator();
+//        }
+//    }
 }
