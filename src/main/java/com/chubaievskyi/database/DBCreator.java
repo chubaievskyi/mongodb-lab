@@ -34,9 +34,10 @@ public class DBCreator {
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         long startTimeExecutor = System.currentTimeMillis();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter,
-                    database, shopsData, productData);
-            executor.submit(randomDataPlaceholder);
+//            RandomDataPlaceholder randomDataPlaceholder = new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter,
+//                    database, shopsData, productData);
+//            executor.submit(randomDataPlaceholder);
+            executor.submit(new RandomDataPlaceholder(NUMBER_OF_LINES, rowCounter, database, shopsData, productData));
         }
 
         shutdownAndAwaitTermination(executor);
