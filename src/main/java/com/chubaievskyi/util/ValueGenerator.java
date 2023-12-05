@@ -9,9 +9,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertManyResult;
 import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ValueGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValueGenerator.class);
-//    private static final InputReader INPUT_READER = InputReader.getInstance();
-//    private static final int NUMBER_OF_SHOPS = INPUT_READER.getNumberOfShops();
-//    private static final int NUMBER_OF_PRODUCTS = INPUT_READER.getNumberOfProduct();
     private final DTOGenerator dtoGenerator = new DTOGenerator();
-//    private final Validator validator = initializeValidator();
-//    private final MongoDatabase database = ConnectionManager.getDatabase();
 
     public List<Document> generateShopValue(MongoDatabase database, Validator validator, int numberOfShops) {
         List<Document> shopsData = new CopyOnWriteArrayList<>();
@@ -90,10 +83,4 @@ public class ValueGenerator {
         Set<ConstraintViolation<Object>> violations = validator.validate(obj);
         return violations.isEmpty();
     }
-
-//    private Validator initializeValidator() {
-//        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-//            return factory.getValidator();
-//        }
-//    }
 }
