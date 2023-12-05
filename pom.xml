@@ -132,8 +132,6 @@
                                     <excludes>
                                         <exclude>**/application.properties</exclude>
                                         <exclude>**/logback.xml</exclude>
-                                        <exclude>**/selectQuery.sql</exclude>
-                                        <exclude>**/tableGenerator.sql</exclude>
                                     </excludes>
                                 </filter>
                             </filters>

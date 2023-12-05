@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RandomDataPlaceholder implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RandomDataPlaceholder.class);
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private static final InputReader INPUT_READER = InputReader.getInstance();
     private static final int MAX_QUANTITY = INPUT_READER.getMaxProductQuantity();
     private static final int BATCH_SIZE = INPUT_READER.getBatchSize();
@@ -57,9 +57,11 @@ public class RandomDataPlaceholder implements Runnable {
             for (int i = 0; i < batchSize; i++) {
                 counter.incrementAndGet();
 
-                Document randomShop = getRandomDocument(shopsData);
+//                Document randomShop = getRandomDocument(shopsData);
+                Document randomShop = shopsData.get(RANDOM.nextInt(shopsData.size()));
                 ObjectId shopId = randomShop.getObjectId("_id");
-                Document randomProduct = getRandomDocument(productData);
+//                Document randomProduct = getRandomDocument(productData);
+                Document randomProduct = productData.get(RANDOM.nextInt(productData.size()));
                 ObjectId productId = randomProduct.getObjectId("_id");
 
                 int quantity = FAKER.number().numberBetween(1, MAX_QUANTITY);
@@ -81,8 +83,8 @@ public class RandomDataPlaceholder implements Runnable {
         }
     }
 
-    private static Document getRandomDocument(List<Document> documents) {
-        int index = random.nextInt(documents.size());
-        return documents.get(index);
-    }
+//    private static Document getRandomDocument(List<Document> documents) {
+//        int index = RANDOM.nextInt(documents.size());
+//        return documents.get(index);
+//    }
 }
