@@ -1,6 +1,5 @@
 package com.chubaievskyi.util;
 
-import com.github.javafaker.Faker;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertManyResult;
@@ -14,22 +13,21 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RandomDataPlaceholder implements Runnable {
+public class RandomDataGenerator implements Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RandomDataPlaceholder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RandomDataGenerator.class);
     private static final Random RANDOM = new Random();
     private static final InputReader INPUT_READER = InputReader.getInstance();
     private static final int MAX_QUANTITY = INPUT_READER.getMaxProductQuantity();
     private static final int BATCH_SIZE = INPUT_READER.getBatchSize();
-    private static final Faker FAKER = new Faker();
     private final int numberOfLines;
     private final AtomicInteger counter;
     private final MongoDatabase database;
     private final List<Document> shopsData;
     private final List<Document> productData;
 
-    public RandomDataPlaceholder(int numberOfLines, AtomicInteger counter, MongoDatabase database,
-                                 List<Document> shopsData, List<Document> productData) {
+    public RandomDataGenerator(int numberOfLines, AtomicInteger counter, MongoDatabase database,
+                               List<Document> shopsData, List<Document> productData) {
         this.numberOfLines = numberOfLines;
         this.counter = counter;
         this.database = database;
@@ -62,7 +60,7 @@ public class RandomDataPlaceholder implements Runnable {
                 Document randomProduct = productData.get(RANDOM.nextInt(productData.size()));
                 ObjectId productId = randomProduct.getObjectId("_id");
 
-                int quantity = FAKER.number().numberBetween(1, MAX_QUANTITY);
+                int quantity = RANDOM.nextInt(MAX_QUANTITY) + 1;
 
                 Document document = new Document()
                         .append("shop_id", shopId)

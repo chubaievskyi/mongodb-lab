@@ -2,7 +2,7 @@ package com.chubaievskyi.database;
 
 import com.chubaievskyi.util.ConnectionManager;
 import com.chubaievskyi.util.InputReader;
-import com.chubaievskyi.util.RandomDataPlaceholder;
+import com.chubaievskyi.util.RandomDataGenerator;
 import com.chubaievskyi.util.ValueGenerator;
 import com.mongodb.client.MongoDatabase;
 import jakarta.validation.Validation;
@@ -40,7 +40,7 @@ public class DBCreator {
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         long startTimeExecutor = System.currentTimeMillis();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            executor.submit(new RandomDataPlaceholder(NUMBER_OF_LINES, counter, database, shopsData, productData));
+            executor.submit(new RandomDataGenerator(NUMBER_OF_LINES, counter, database, shopsData, productData));
         }
 
         shutdownAndAwaitTermination(executor);
