@@ -30,8 +30,8 @@ public class ProductQueryExecutor {
         List<ObjectId> productIds = findProductIdsByCategory();
         if (!productIds.isEmpty()) {
             Document shopId = findShopWithMaxQuantity(productIds);
+            endTime = System.currentTimeMillis();
             if (shopId != null) {
-                endTime = System.currentTimeMillis();
                 printShopInfo(shopId);
             } else {
                 LOGGER.info("No shop found with the maximum quantity for the given category.");
